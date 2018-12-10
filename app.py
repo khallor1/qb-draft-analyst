@@ -8,6 +8,7 @@ from models import QBModel
 # model = QBModel()
 
 model = QBModel()
+print(str(model))
 
 app = Flask(__name__)
 

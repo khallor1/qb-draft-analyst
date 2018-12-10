@@ -2,6 +2,7 @@
 
 import pandas as pd
 import json
+from datetime import datetime
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
@@ -42,6 +43,15 @@ college_test_df.drop(columns=['COLLEGE', 'CONF'], inplace=True)
 # college_test_df: encoded test data with player names as column 0
 #
 
+#decorator
+def append_time(function):
+	def timed_fun(*args, **kwargs):
+		start = datetime.now()
+		res = function(*args, **kwargs)
+		elapsed = (datetime.now() - start).total_seconds()
+		return res + ' ({} seconds)'.format(elapsed)
+	return timed_fun
+
 def get_college_player_data(playername):
 	row = college_test_df.loc[college_test_df['PLAYER'] == playername]
 	return row.iloc[:, 1:]
@@ -63,24 +73,32 @@ class QBModel:
 		self.y = CLASS_LABELS
 		self.regr_y = REGRESSOR_LABELS
 
+	def __str__(self):
+		return 'QBModel- training players: {}, testing players: {}'.format(
+			len(self.X), len(college_test_df))
+
+	@append_time
 	def dt_classifier_prediction(self, name):
 		dt_model = DecisionTreeClassifier(max_depth=8, random_state=42)
 		dt_model.fit(self.X, self.y)
 		pred = dt_model.predict(get_college_player_data(name))[0]
 		return classify(pred)
 
+	@append_time
 	def rf_classifier_prediction(self, name):
 		rf_model = RandomForestClassifier(n_estimators=1, random_state=42)
 		rf_model.fit(self.X, self.y)
 		pred = rf_model.predict(get_college_player_data(name))[0]
 		return classify(pred)
 
+	@append_time
 	def mlp_classifier_prediction(self, name):
 		mlp_model = MLPClassifier(random_state=42, hidden_layer_sizes=(8, 8), max_iter=4000)
 		mlp_model.fit(self.X, self.y)
 		pred = mlp_model.predict(get_college_player_data(name))[0]
 		return classify(pred)
 
+	@append_time
 	def rf_regressor_prediction(self, name):
 		regr = RandomForestRegressor(max_depth=1, random_state=42, n_estimators=100)
 		regr.fit(self.X, self.regr_y)

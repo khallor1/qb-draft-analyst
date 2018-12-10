@@ -11,8 +11,20 @@ predict career NFL stats.  Then, I scrape the data of current top NFL draft qb
 prospects, and using these models, predict their performance.  I created a flak app to 
 streamline interaction
 
-Technologies used:
+Modules used:
 BeautifulSoup, re (regex), requests, pandas, scikit-learn, flask, json
 
-Other stuff:
+How to use:
+I already scraped the data (via jupyter notebooks), so to use the models and look at 
+predictions, simply type
+./app.py in your terminal and open http://localhost:5000/ in your browser.
 
+Custom class:
+I created a QBModel class that gets imported into app.py so that it can be used by my 
+flask app.  It stores the training data as a class variable and returns the results of 
+various ML predictions, depending on which function is called.  I added the __str__ magic
+method.
+
+Decorator:
+I created a timer that appends the time it takes to run a function to its output string.  
+I used this so my predictions would show time, kind of like google search.
