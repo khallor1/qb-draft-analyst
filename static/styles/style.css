@@ -3,6 +3,17 @@
 	text-align: center;
 }
 
-body {
-	background-color: 'red';
+.navbar {
+	background-color: #b3b3e6;
+}
+
+#result {
+  margin-right: 20%;
+  margin-left: 20%;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.m-md {
+	background-color: #ffffff;
 }

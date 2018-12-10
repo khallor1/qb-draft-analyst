@@ -1,15 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  	<title>QB Draft Analyst</title>
-  	<meta charset="utf-8">
+	<title>QB Draft Analyst</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$("#testform").submit(function(e){
+				e.preventDefault();
+				$('#result').html("calculating...");
+				var payload = {name: $('#QBSelector').val(), model: $('#ModelSelector').val()};
+				console.log(payload);
+				$.post( "/predict", payload, function(data) {
+					$('#result').html(data);
+				});
+			});
+		});
+	</script>
 </head>
 <body>
-	<h1>Predictor</h1>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<h1 class="text-center">Predictor</h1>
+		</div>
+	</nav>
+	<div class="m-md">
+		<div class="col-md-6">
+			<form id="testform">
+				<div class="form-group">
+					<label for="QBSelector">Select a Quarterback</label>
+					<select class="form-control" id="QBSelector">
+						<option>Kyler Murray</option>
+						<option>Will Grier</option>
+						<option>Dwayne Haskins</option>
+						<option>Ryan Finley</option>
+						<option>Shea Patterson</option>
+						<option>Justin Herbert</option>
+						<option>Gardner Minshew</option>
+						<option>Nathan Stanley</option>
+						<option>Jarrett Stidham</option>
+						<option>Deondre Francois</option>
+						<option>Clayton Thorson</option>
+						<option>Daniel Jones</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="ModelSelector">Select a Model</label>
+					<select class="form-control" id="ModelSelector">
+						<option>Decision Tree Classifier</option>
+						<option>Random Forest Classifier</option>
+						<option>MLP Classifier</option>
+						<option>SVD Classifier</option>
+						<option>Random Forest Regressor</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-primary">Predict</button>
+			</form>
+		</div>
+		<div class="col-md-6">
+			<div class="text-center" id="result"></div>
+		</div>
+	</div>
 	<div class="navbar-fixed-bottom">Created by Kieran Halloran for CIS192 Final Project</div>
 </body>
 </html>
