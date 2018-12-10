@@ -1,11 +1,18 @@
 # qb-draft-analyst
-CIS192 Final Project
+CIS192 Final Project (Kieran Halloran)
 
 Methodology:
-Since the purpose of this project is to predict the performace of draft prospects the the quarterback position, I will look at all of the quarterbacks drafted into the NFL from 2010-2017.  I will then scrape their college football stats to use as my inputs to the training data and their nfl performace as the uotput to the training data.  The test data will be current college QBs.
+Since the purpose of this project is to predict the performace of draft prospects the the
+quarterback position, I will look up the statistics of all quarterbacks drafted into the
+nfl from 1997-2017.  Using these stats, I train various ML models that either classify
+the quarterbacks as a success or bust (using the criterion developed by Stanford
+students: cs229.stanford.edu/proj2017/final-reports/5231213.pdf), or use a regressor to
+predict career NFL stats.  Then, I scrape the data of current top NFL draft qb
+prospects, and using these models, predict their performance.  I created a flak app to 
+streamline interaction
 
-Features for prediction (career, or year-by-year?). how to hange grad transfers?:
-Conf G Cmp Att Yds TD Int (ht/weight/size?)
+Technologies used:
+BeautifulSoup, re (regex), requests, pandas, scikit-learn, flask, json
 
-Outputs:
-nfl stats of some sort-maybe classify in a similar manner to the stanford paper
+Other stuff:
+
